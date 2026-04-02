@@ -7,6 +7,7 @@ let lastT = 0;
 document.addEventListener("mousemove", (e) => {
   cur.style.left = e.clientX + "px";
   cur.style.top = e.clientY + "px";
+
   const now = Date.now();
   if (now - lastT > 28) {
     spawnTrail(e.clientX, e.clientY);
@@ -45,11 +46,11 @@ function spawnTrail(x, y) {
   } else if (shape === "ring") {
     el.style.cssText += `width:${size}px;height:${size}px;background:transparent;border:2px solid ${color};border-radius:50%;box-shadow:0 0 ${size / 2}px ${color};`;
   } else if (shape === "diamond") {
-    el.style.cssText += `width:${size}px;height:${size}px;background:${color};border-radius:2px;transform:translate(-50%,-50%) rotate(45deg);box-shadow:0 0 ${size}px ${color};`;
+    el.style.cssText += `width:${size}px;height:${size}px;background:${color};transform:rotate(45deg);box-shadow:0 0 ${size}px ${color};`;
   } else {
     const s = size * 2;
-    el.innerHTML = `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="${color}" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 4px ${color})"><polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9"/></svg>`;
-    el.style.cssText += `width:${s}px;height:${s}px;background:transparent;border-radius:0;`;
+    el.innerHTML = `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="${color}"><polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9"/></svg>`;
+    el.style.cssText += `width:${s}px;height:${s}px;`;
   }
 
   document.body.appendChild(el);
@@ -61,30 +62,18 @@ const io = new IntersectionObserver(
   (entries) => {
     entries.forEach((en) => {
       if (en.isIntersecting) {
-        en.target.classList.remove("on");
-        void en.target.offsetWidth;
         en.target.classList.add("on");
       } else {
         en.target.classList.remove("on");
       }
     });
   },
-  { threshold: 0.1, rootMargin: "0px 0px -80px 0px" },
+  { threshold: 0.1 },
 );
 
 document
   .querySelectorAll(".fade-up,.slide-l,.slide-r")
   .forEach((el) => io.observe(el));
-
-/* ── Form ───────────────────────────────────────────── */
-function handleSubmit(e) {
-  e.preventDefault();
-  const name = document.getElementById("cname").value;
-  alert(
-    `Thank you ${name}! Your message has been received. I'll get back to you soon!`,
-  );
-  e.target.reset();
-}
 
 /* ── Smooth Scroll ──────────────────────────────────── */
 document.querySelectorAll('a[href^="#"]').forEach((a) => {
@@ -94,3 +83,57 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => {
     if (t) t.scrollIntoView({ behavior: "smooth" });
   });
 });
+
+/* ── EmailJS Integration ────────────────────────────── */
+
+// ✅ Initialize EmailJS
+(function () {
+  emailjs.init("G_KUE25bWn0Jx9dbE");
+})();
+
+// ✅ Status Message Box
+const statusBox = document.getElementById("form-status");
+
+// ✅ Show Message Function
+function showMessage(message, type) {
+  if (!statusBox) return;
+
+  statusBox.textContent = message;
+  statusBox.className = `form-status show ${type}`;
+
+  setTimeout(() => {
+    statusBox.classList.remove("show");
+  }, 2500);
+}
+
+// ✅ Form Submission
+const form = document.getElementById("contact-form");
+
+if (form) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const btn = form.querySelector("button");
+
+    // 🔄 Loading state
+    btn.disabled = true;
+    btn.textContent = "Sending...";
+
+    emailjs
+      .sendForm("service_n1es9jo", "template_a5mlbd7", form)
+      .then(
+        () => {
+          showMessage("Message sent successfully!", "success");
+          form.reset();
+        },
+        (error) => {
+          console.log("FAILED...", error);
+          showMessage("Failed to send message", "error");
+        },
+      )
+      .finally(() => {
+        btn.disabled = false;
+        btn.textContent = "Send Message";
+      });
+  });
+}
