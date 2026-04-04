@@ -189,11 +189,11 @@
      font-weight: 800;
      letter-spacing: .02em;
      line-height: 1.1;
-background-image: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);
+background-image: linear-gradient(to right, #00dbde 0%, #4943ff 100%);
      -webkit-background-clip: text;
      -webkit-text-fill-color: transparent;
      background-clip: text;
-     filter: drop-shadow(0 0 22px rgba(0, 255, 238, 0.5));
+     filter: drop-shadow(0 0 22px rgba(51, 199, 189, 0.5));
      animation: slideDown .9s ease-out both;
  }
 
@@ -258,10 +258,11 @@ background-image: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);
  .btn-a {
      padding: .9rem 2rem;
      border-radius: 50px;
-     font-weight: 600;
+     font-weight: 700;
+     font-size: 1.2rem;
      border: none;
-background-image: linear-gradient(-225deg, #65379B 0%, #886AEA 53%, #6457C6 100%);
-     color: var(--bg1);
+background-image: linear-gradient(-225deg, #1e0a35 0%, #6aa8ea 53%, #090524 100%);
+     color: rgb(51, 3, 3);
      transition: all .3s;
      text-decoration: none;
      display: inline-block;
@@ -278,8 +279,8 @@ background-image: linear-gradient(-225deg, #65379B 0%, #886AEA 53%, #6457C6 100%
      border-radius: 50px;
      font-weight: 600;
      border: 2px solid var(--primary);
-    background-image: linear-gradient(to top, lightgrey 0%, lightgrey 1%, #e0e0e0 26%, #efefef 48%, #d9d9d9 75%, #bcbcbc 100%);
-     color: var(--primary);
+    background-image: linear-gradient(to top, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 1%, #000000 26%, #000000 48%, #0c0828 75%, #070835 100%);
+     color:white;
      transition: all .3s;
      text-decoration: none;
      display: inline-block;
@@ -775,11 +776,12 @@ position: absolute;
  .submit-btn {
      width: 100%;
      padding: 1rem;
-     background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background-image: linear-gradient(-225deg, #1e0a35 0%, #6aa8ea 53%, #090524 110%,
+        #6aa8ea 53% );
      color: var(--bg1);
      border: none;
      border-radius: 8px;
-     font-size: 1rem;
+     font-size: 1.5rem;
      font-weight: 600;
      cursor: none;
      transition: all .3s;
