@@ -25,7 +25,7 @@ This is my personal portfolio website built to showcase my projects, skills, and
 - assets/
 
 ## 🔗 Live Demo
-
+https://my-personal-portfolio-ten-blue.vercel.app/
 
 ## 📸 Screenshots
 <img width="1896" height="900" alt="image" src="https://github.com/user-attachments/assets/8d338b77-91eb-4d07-a0c9-7b70398244ad" />
